@@ -26,9 +26,14 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  void _displayMessage() {
+
+  bool _displayAnotherMessage = false;
+  String message = 'Hello World';
+
+  void _changeMessageValue(String newMessage) {
     setState(() {
-      debugPrint('Button pressed');
+      _displayAnotherMessage = !_displayAnotherMessage;
+      message = newMessage;
     });
   }
 
@@ -44,21 +49,21 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'A simple text',
-              style: TextStyle(fontSize: 20),
+            Text(
+              message,
+              style: const TextStyle(fontSize: 20),
             ),
             TextButton(
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
                 foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
               ),
-              onPressed: () => _displayMessage(),
+              onPressed: () => _changeMessageValue(_displayAnotherMessage ? 'Hello World' : 'Hello Flutter'),
               child: const Text('Click me buddy'),
             )
           ],
         ),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      ),
     );
   }
 }
